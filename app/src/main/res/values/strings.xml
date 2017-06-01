@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">GymFriend</string>
+    <string name="err_connection_failure">Please check network connection.</string>
+</resources>
