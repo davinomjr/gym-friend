@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">GymFriend</string>
     <string name="err_connection_failure">Please check network connection.</string>
+    <string name="err_permission_denied">The permission request is required to use the app and as such, the application will close.</string>
 </resources>

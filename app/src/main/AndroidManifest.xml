@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.davino.gymfriend">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +15,7 @@
         android:name=".code.GymFriendApplication"
         android:persistent="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HomeActivity">
+        <activity android:name=".activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +23,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".services.BackgroundService" />
+        <service android:name=".services.AppBackgroundService" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDTLki-S6fcUQZWLVDGxyOFpBMvbODN7jA"/>
