@@ -2,4 +2,9 @@
     <string name="app_name">GymFriend</string>
     <string name="err_connection_failure">Please check network connection.</string>
     <string name="err_permission_denied">The permission request is required to use the app and as such, the application will close.</string>
+    <string name="title_activity_gym_friend">GymFriendActivity</string>
+    <string name="gym_Friend_title">GYM Friend</string>
+    <string name="have_a_good_workout">Have a nice workout! Dont forget to hydrate yourself!</string>
+    <string name="title_locations_fragment">Last GYM Locations</string>
+    <string name="title_sleepingtimes_fragment">Last Sleeping times</string>
 </resources>

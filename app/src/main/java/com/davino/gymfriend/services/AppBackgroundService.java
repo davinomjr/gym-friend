@@ -14,36 +14,39 @@ import android.util.Log;
 import android.os.Process;
 
 import com.davino.gymfriend.activities.HomeActivity;
-import com.davino.gymfriend.interfaces.IContextAwerenessCallback;
+import com.davino.gymfriend.interfaces.IGymLocationListener;
+import com.davino.gymfriend.model.LocationHistory;
 import com.davino.gymfriend.util.Constants;
 import com.davino.gymfriend.util.LocationHelper;
 import com.davino.gymfriend.util.NotificationHelper;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.places.Places;
+
+import org.parceler.Parcels;
 
 /**
  * Created by davin on 31/05/2017.
  */
 
-public class AppBackgroundService extends Service implements IContextAwerenessCallback {
+public class AppBackgroundService extends Service implements IGymLocationListener {
 
-    private static final String TAG = "AppBackgroundService";
+    private static final String TAG = AppBackgroundService.class.getSimpleName();
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
     private final IBinder mBinder = new GymBinder();
-    private IContextAwerenessCallback mCallback;
+    private IGymLocationListener mCallback;
     private LocationHelper mLocationHelper;
     private NotificationHelper mNotificationHelper = new NotificationHelper();
     private boolean userOnGym = false;
 
     @Override
-    public void notifyDeviceNearGym() {
-        Intent dialogIntent = new Intent(this, HomeActivity.class);
-        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivity(dialogIntent);
-        userOnGym = true;
-        //TODO: start treatment to user on GYM
+    public void notifyDeviceNearGym(LocationHistory locationHistory) {
+        userOnGym = locationHistory != null;
+        if(userOnGym) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            intent.putExtra("location", Parcels.wrap(locationHistory));
+            startActivity(intent);
+        }
     }
 
     // Class used for the client Binder.
@@ -56,7 +59,7 @@ public class AppBackgroundService extends Service implements IContextAwerenessCa
 
     @Override
     public void onCreate() {
-        Log.i("AppBackgroundService","SERVICE STARTED") ;
+        Log.i(TAG,"SERVICE STARTED") ;
         HandlerThread thread = new HandlerThread("AppBackgroundService", Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
         mServiceLooper = thread.getLooper();
@@ -64,12 +67,13 @@ public class AppBackgroundService extends Service implements IContextAwerenessCa
         startKillSwitchNotification();
     }
 
-    public void configureMLocationHelper(GoogleApiClient apiClient){
-        this.mLocationHelper = new LocationHelper(this, apiClient);
+    public void configureMLocationHelper(){
+        mLocationHelper = LocationHelper.getInstance();
+        mLocationHelper.setOnEventListener(this);
     }
 
     private void startKillSwitchNotification(){
-        Log.i("AppBackgroundService", "NOTIFICATION STARTED");
+        Log.i(TAG, "NOTIFICATION STARTED");
         Intent killIntent = new Intent(getApplicationContext(), HomeActivity.class);
         killIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         killIntent.putExtra(Constants.KILL_COMMAND, true);
