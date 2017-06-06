@@ -7,4 +7,5 @@
     <string name="have_a_good_workout">Bom treino!! Não se esqueça de se hidratar!</string>
     <string name="title_locations_fragment">Últimas academias visitadas</string>
     <string name="title_sleepingtimes_fragment">Últimos horários de sono</string>
+    <string name="alert">Nossa, mais de 5 minutos mexendo no celular... você não deveria estar treinando?</string>
 </resources>

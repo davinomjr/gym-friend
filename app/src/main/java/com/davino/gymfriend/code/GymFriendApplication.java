@@ -1,10 +1,8 @@
 package com.davino.gymfriend.code;
 
 import android.app.Application;
-import android.content.Intent;
 import android.util.Log;
 
-import com.davino.gymfriend.services.AppBackgroundService;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -26,7 +24,9 @@ public class GymFriendApplication extends Application {
         Log.i(TAG, "initializing firebase");
         FirebaseApp.initializeApp(this);
         mDatabase = FirebaseDatabase.getInstance();
+
     }
+
 
     public static FirebaseDatabase getDatabase() {
         return getInstance().mDatabase;

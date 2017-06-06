@@ -47,6 +47,8 @@ public class HomeActivity extends BaseActivity implements GoogleApiClient.OnConn
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,7 @@ public class HomeActivity extends BaseActivity implements GoogleApiClient.OnConn
             dealWithIntent(getIntent());
         }
     }
+
 
     @Override
     protected void onStart() {
@@ -89,7 +92,6 @@ public class HomeActivity extends BaseActivity implements GoogleApiClient.OnConn
         super.onPause();
     }
 
-
     private void loadTabs(){
         toolbar = (Toolbar) findViewById(R.id.tabBar);
         setSupportActionBar(toolbar);
@@ -114,6 +116,14 @@ public class HomeActivity extends BaseActivity implements GoogleApiClient.OnConn
     }
 
     private void dealWithIntent(Intent intent) {
+        if(intent.getBooleanExtra("alert", false)){
+            new MaterialDialog.Builder(this)
+                    .title(R.string.gym_Friend_title)
+                    .content(R.string.alert)
+                    .positiveText("OK")
+                    .show();
+        }
+
         if (intent.getBooleanExtra(Constants.KILL_COMMAND, false)) {
             Log.i(TAG, "Killing app");
             stopService(new Intent(this, AppBackgroundService.class));
@@ -132,12 +142,13 @@ public class HomeActivity extends BaseActivity implements GoogleApiClient.OnConn
                         .content(R.string.have_a_good_workout)
                         .positiveText("OK")
                         .show();
+
             }
 
             mOnGym = true;
-            Log.i(TAG, "TREAT LIKE ON GYM");
         }
     }
+
 
     //TODO: Change location?
     private void addLocation(LocationHistory location){

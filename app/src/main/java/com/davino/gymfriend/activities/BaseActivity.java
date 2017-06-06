@@ -3,8 +3,11 @@ package com.davino.gymfriend.activities;
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
@@ -43,7 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         Log.i(TAG, "Checking permissions");
         String[] permissions = {
                 Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.INTERNET,
+                Manifest.permission.INTERNET
         };
 
         for(String permission : permissions){

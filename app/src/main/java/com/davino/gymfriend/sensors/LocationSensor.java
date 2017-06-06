@@ -1,10 +1,12 @@
-package com.davino.gymfriend.util;
+package com.davino.gymfriend.sensors;
 
 import android.util.Log;
 
 import com.davino.gymfriend.code.GymFriendApplication;
 import com.davino.gymfriend.interfaces.IGymLocationListener;
 import com.davino.gymfriend.model.LocationHistory;
+import com.davino.gymfriend.util.Constants;
+import com.davino.gymfriend.util.DateHelper;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.places.Place;
@@ -17,20 +19,19 @@ import java.util.ArrayList;
  * Created by davin on 03/06/2017.
  */
 
-public class LocationHelper {
+public class LocationSensor {
 
-    private static final String TAG = "LocationHelper";
-    private IGymLocationListener mContext;
-    private static LocationHelper mLocationHelper;
+    private static final String TAG = "LocationSensor";
+    private static LocationSensor mLocationHelper;
     private ArrayList<IGymLocationListener> listeners = new ArrayList<>();
 
     public void setOnEventListener(IGymLocationListener listener){
         listeners.add(listener);
     }
 
-    public static LocationHelper getInstance(){
+    public static LocationSensor getInstance(){
         if(mLocationHelper == null){
-            mLocationHelper =  new LocationHelper();
+            mLocationHelper =  new LocationSensor();
         }
 
         return mLocationHelper;
@@ -46,8 +47,6 @@ public class LocationHelper {
             @Override
             public void onResult(PlaceLikelihoodBuffer likelyPlaces) {
                 LocationHistory gymLocation = null;
-                boolean onGym = false;
-                Log.i(TAG, "RESULTED COMINGG");
                 for (PlaceLikelihood placeLikelihood : likelyPlaces) {
                             Log.i(TAG, String.format("Place '%s' has likelihood: %g",
                             placeLikelihood.getPlace().getName(),

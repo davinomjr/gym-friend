@@ -7,4 +7,5 @@
     <string name="have_a_good_workout">Have a nice workout! Dont forget to hydrate yourself!</string>
     <string name="title_locations_fragment">Last GYM Locations</string>
     <string name="title_sleepingtimes_fragment">Last Sleeping times</string>
+    <string name="alert">Woww, more then 5 minutes without trainning... would you like to be like this?</string>
 </resources>
