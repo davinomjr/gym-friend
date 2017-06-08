@@ -42,18 +42,16 @@ public class LocationSensor {
             GymFriendApplication.getGoogleAPIHelper().connect();
         }
 
+        Log.i(TAG, "Verificando lugares proximos");
         PendingResult<PlaceLikelihoodBuffer> result = com.google.android.gms.location.places.Places.PlaceDetectionApi.getCurrentPlace(GymFriendApplication.getGoogleAPIHelper().getApiClient(), null);
          result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>() {
             @Override
             public void onResult(PlaceLikelihoodBuffer likelyPlaces) {
                 LocationHistory gymLocation = null;
                 for (PlaceLikelihood placeLikelihood : likelyPlaces) {
-                            Log.i(TAG, String.format("Place '%s' has likelihood: %g",
-                            placeLikelihood.getPlace().getName(),
-                            placeLikelihood.getLikelihood()));
                             if(placeLikelihood.getLikelihood() > Constants.MINIUM_LIKELYHOOD_CONFIDENCE
                                 && placeLikelihood.getPlace().getPlaceTypes().indexOf(Place.TYPE_GYM) != -1){
-                                gymLocation = new LocationHistory(placeLikelihood.getPlace().getName().toString(), DateHelper.getCurrentDateTimeHour());
+                                gymLocation = new LocationHistory(placeLikelihood.getPlace().getName().toString(), DateHelper.getFormattedCurrentDateTime());
                                 break;
                             }
                 }

@@ -13,6 +13,7 @@ import com.davino.gymfriend.R;
 import com.davino.gymfriend.adapters.LocationsHistoryAdapter;
 import com.davino.gymfriend.code.GymFriendApplication;
 import com.davino.gymfriend.model.LocationHistory;
+import com.davino.gymfriend.util.Constants;
 import com.google.firebase.database.Query;
 
 /**
@@ -25,12 +26,11 @@ public class LocationHistoryFragment extends BaseListFragment<LocationHistory> {
     private Query mQuery;
 
     public static LocationHistoryFragment newInstance() {
-        LocationHistoryFragment newInstance = new LocationHistoryFragment();
-        return newInstance;
+        return new LocationHistoryFragment();
     }
 
     private void setupFirebase() {
-        mQuery = GymFriendApplication.getInstance().getDatabase().getReference("locations");
+        mQuery = GymFriendApplication.getDatabase().getReference(Constants.FIREBASE_LOCATION_REFERENCE);
     }
 
     private void setupRecyclerview(View recycView) {

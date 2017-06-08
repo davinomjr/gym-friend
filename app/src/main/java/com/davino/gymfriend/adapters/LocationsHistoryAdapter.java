@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class LocationsHistoryAdapter extends FirebaseRecyclerAdapter<LocationsHistoryAdapter.ViewHolder, LocationHistory> {
 
-    private static final String TAG = "LocationsHistoryAdapter";
+    private static final String TAG = LocationsHistoryAdapter.class.getSimpleName();
 
     public LocationsHistoryAdapter(Query query, @Nullable ArrayList<LocationHistory> items, @Nullable ArrayList<String> keys){
         super(query, items, keys);
@@ -66,9 +66,9 @@ public class LocationsHistoryAdapter extends FirebaseRecyclerAdapter<LocationsHi
 
         public ViewHolder(View view) {
             super(view);
+            this.view = view;
             textViewLocationName = (TextView) view.findViewById(R.id.location_name);
             textViewDate = (TextView) view.findViewById(R.id.location_history_date);
-            this.view = view;
         }
     }
 }

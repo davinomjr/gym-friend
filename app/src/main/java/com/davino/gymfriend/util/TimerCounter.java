@@ -13,6 +13,7 @@ public class TimerCounter
     }
 
     public void startCounting(){
+        timer = 0;
         timer = System.currentTimeMillis();
     }
 
